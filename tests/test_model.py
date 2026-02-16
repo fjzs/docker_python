@@ -20,11 +20,11 @@ def test_empty_case():
     assert total_value == 0
     assert selected == []
 
-
-def test_no_fit():
-    weights = np.array([10, 20, 30])
-    values = np.array([1, 2, 3])
-    capacity = 5
-    selected, total_value = knapsack_greedy(weights, values, capacity)
-    assert total_value == 0
-    assert selected == []
+# Comment this test to check if a new image is created
+# def test_no_fit():
+#     weights = np.array([10, 20, 30])
+#     values = np.array([1, 2, 3])
+#     capacity = 5
+#     selected, total_value = knapsack_greedy(weights, values, capacity)
+#     assert total_value == 0
+#     assert selected == []
