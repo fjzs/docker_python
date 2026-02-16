@@ -1,6 +1,6 @@
 import numpy as np
 
-from app.main import knapsack_greedy
+from app.model import knapsack_greedy
 
 
 def test_basic_case():
