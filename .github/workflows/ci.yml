@@ -7,6 +7,9 @@ on:
 jobs:
   build-test-push:
     runs-on: ubuntu-latest
+    permissions:
+      packages: write
+      contents: read
 
     env:
       IMAGE_NAME: ghcr.io/${{ github.repository_owner }}/optimization-api
