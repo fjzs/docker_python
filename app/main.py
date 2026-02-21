@@ -12,7 +12,6 @@ logic for solving the knapsack problem will be implemented in separate modules, 
 from fastapi import FastAPI
 from pydantic import BaseModel
 
-
 # Initialize the FastAPI application
 # FastAPI handles all the routing, validation, and documentation automatically
 app = FastAPI()

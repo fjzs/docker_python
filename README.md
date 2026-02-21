@@ -1,6 +1,10 @@
-# OptOps: python web application - solving the knapsack problem
-This is a project that implements a web application to solve the knapsack problem using Python.
-The purpose of this project is to practice OptOps.
+# OptOps: python web application for an optimization problem
+The purpose of this project is to practice OptOps, particularly CI/CD, and to create a simple web application that solves an optimization problem. 
+The application is built using:
+- FastAPI: a modern, fast (high-performance) web framework for building APIs with Python.
+- Docker: a platform for developing, shipping, and running applications in containers, which allows for consistent environments across development and production.
+- Render: a cloud platform that provides hosting for web applications, databases, and other services, making it easy to deploy and manage applications in the cloud.
+- GitHub Actions: a CI/CD platform that allows you to automate your build, test, and deployment pipeline directly from your GitHub repository.
 
 # Installation instructions
 1. Clone the repository:
@@ -21,25 +25,25 @@ The purpose of this project is to practice OptOps.
     ```
     pytest
     ```
-6. Start the web application:
+6. Start the web application locally (this method will reload the app on any code changes):
     ```
-    python app/main.py
+    uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
     ```
-7. Open your web browser and navigate to `http://localhost:8000` to access
+7. Open your web browser and navigate to `http://localhost:8000` to access the application.
 
 # End points
 - List here the end points of the app
 
-# Running the application with Docker
-- Build the Docker image:
+# Running the application with Docker (locally)
+1. Build the Docker image (or skip this step if your image is already built locally):
    ```
    docker build -t optimization-api .
    ```
-- Run the Docker container:
+2. Run the Docker container:
    ```
    docker run -d -p 8000:8000 optimization-api
    ```
-- Open your web browser and navigate to `http://localhost:8000` to access the application.
+3. Open your web browser and navigate to `http://localhost:8000` to access the application.
 
 # Continuous Integration and Deployment (CI/CD)
 This project uses GitHub Actions for continuous integration and deployment.
