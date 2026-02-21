@@ -1,20 +1,35 @@
 """
-FastAPI application for the OptOps knapsack problem solver.
+FastAPI application for the Facility Location Optimization Problem solver.
 
-This module defines the main API endpoints for the web application.
-It uses FastAPI, a modern Python web framework for building APIs
-with automatic interactive documentation (Swagger UI). This module
-is like the controller in an MVC architecture, handling incoming HTTP requests,
-processing them, and returning appropriate responses. The actual business
-logic for solving the knapsack problem will be implemented in separate modules, which this controller will call as needed
+This module defines the main API endpoints and serves the web application frontend.
+It uses FastAPI, a modern Python web framework for building APIs with automatic
+interactive documentation (Swagger UI). This module orchestrates:
+- Static file serving (HTML, CSS, JavaScript)
+- API endpoint routing
+- Business logic integration
 """
 
 from fastapi import FastAPI
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
+from pathlib import Path
 from pydantic import BaseModel
+from app.controllers.facility_location_controller import router as facility_router
 
 # Initialize the FastAPI application
 # FastAPI handles all the routing, validation, and documentation automatically
-app = FastAPI()
+app = FastAPI(
+    title="Facility Location Optimizer",
+    description="Optimize facility placement to serve customers efficiently",
+    version="1.0.0",
+)
+
+# Mount static files (CSS, JavaScript, images, etc.)
+static_path = Path(__file__).parent / "static"
+app.mount("/static", StaticFiles(directory=str(static_path)), name="static")
+
+# Include API routers
+app.include_router(facility_router)
 
 
 # Define response models using Pydantic for explicit type validation
@@ -28,16 +43,16 @@ class GreetingResponse(BaseModel):
     greeting: str
 
 
-@app.get("/", response_model=GreetingResponse)
-def read_root() -> GreetingResponse:
+@app.get("/")
+def read_root():
     """
-    Root endpoint - simple health check.
+    Root endpoint - serves the landing page HTML.
 
-    Returns:
-        GreetingResponse: A Pydantic model containing a greeting message.
+    Returns the index.html file which contains the facility location UI.
+    This allows the application to be accessed at the root URL.
 
     Example:
         GET http://localhost:8000/
-        Response: {"greeting": "Hello, World!"}
+        Response: HTML content (index.html)
     """
-    return GreetingResponse(greeting="Hello, World!")
+    return FileResponse(static_path / "index.html", media_type="text/html")
