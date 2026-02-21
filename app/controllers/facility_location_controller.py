@@ -9,11 +9,8 @@ import logging
 
 from fastapi import APIRouter, HTTPException
 
-from app.models.facility_location import (
-    GenerateInstanceRequest,
-    FacilityLocationInstance,
-    generate_facility_location_instance,
-)
+from app.models import FacilityLocationInstance, GenerateInstanceRequest
+from app.models import generate_facility_location_instance
 
 logger = logging.getLogger(__name__)
 
