@@ -1,6 +1,5 @@
 """
 FastAPI application for the Facility Location Optimization Problem solver.
-
 This module defines the main API endpoints and serves the web application frontend.
 It uses FastAPI, a modern Python web framework for building APIs with automatic
 interactive documentation (Swagger UI). This module orchestrates:
@@ -8,18 +7,16 @@ interactive documentation (Swagger UI). This module orchestrates:
 - API endpoint routing
 - Business logic integration
 """
-
 from pathlib import Path
 
 from fastapi import FastAPI
 from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
-from pydantic import BaseModel
 
-from app.controllers.facility_location_controller import router as facility_router
+from app.controllers.generate_instance import router as generate_instance_router
+from app.controllers.solve_instance import router as solve_instance_router
 
 # Initialize the FastAPI application
-# FastAPI handles all the routing, validation, and documentation automatically
 app = FastAPI(
     title="Facility Location Optimizer",
     description="Optimize facility placement to serve customers efficiently",
@@ -31,18 +28,8 @@ static_path = Path(__file__).parent / "static"
 app.mount("/static", StaticFiles(directory=str(static_path)), name="static")
 
 # Include API routers
-app.include_router(facility_router)
-
-
-# Define response models using Pydantic for explicit type validation
-class GreetingResponse(BaseModel):
-    """
-    Response model for the root endpoint.
-
-    Attributes:
-        greeting (str): A greeting message.
-    """
-    greeting: str
+app.include_router(generate_instance_router)
+app.include_router(solve_instance_router)
 
 
 @app.get("/")
@@ -51,7 +38,6 @@ def read_root():
     Root endpoint - serves the landing page HTML.
 
     Returns the index.html file which contains the facility location UI.
-    This allows the application to be accessed at the root URL.
 
     Example:
         GET http://localhost:8000/

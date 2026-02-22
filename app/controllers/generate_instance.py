@@ -1,10 +1,7 @@
 """
-Facility Location Problem Controller
-
-This module contains API endpoints for the facility location optimization problem.
-Routes handle instance generation and other API operations.
+Generate Instance Controller
+Handles the API endpoint for generating a facility location problem instance.
 """
-
 import logging
 
 from fastapi import APIRouter, HTTPException
@@ -14,6 +11,10 @@ from app.models import generate_facility_location_instance
 
 logger = logging.getLogger(__name__)
 
+# APIRouter groups related endpoints and attaches them to the main app via
+# app.include_router() in main.py. The prefix applies to all routes in this
+# file, so @router.post("/generate-instance") becomes POST /api/generate-instance.
+# tags controls how endpoints are grouped in the Swagger UI at /docs.
 router = APIRouter(prefix="/api", tags=["facility-location"])
 
 
@@ -41,7 +42,6 @@ def generate_instance(request: GenerateInstanceRequest) -> FacilityLocationInsta
             "n_customers": 10,
             "n_facilities": 3
         }
-
         Returns:
         {
             "n_customers": 10,
@@ -51,13 +51,13 @@ def generate_instance(request: GenerateInstanceRequest) -> FacilityLocationInsta
         }
     """
     try:
-        # Call the model generator function
         instance = generate_facility_location_instance(
             n_customers=request.n_customers,
             n_facilities=request.n_facilities,
         )
         logger.info(
-            f"Generated instance: {request.n_customers} customers, {request.n_facilities} facilities"
+            f"Generated instance: {request.n_customers} customers, "
+            f"{request.n_facilities} facilities"
         )
         return instance
     except ValueError as e:
@@ -66,4 +66,3 @@ def generate_instance(request: GenerateInstanceRequest) -> FacilityLocationInsta
     except Exception as e:
         logger.error(f"Error generating instance: {str(e)}")
         raise HTTPException(status_code=500, detail="Error generating instance")
-

@@ -69,6 +69,32 @@ tests/           # Mirrors app/ structure exactly
 - Do not mock unless I/O or external services are involved.
 - Tests must pass before any code is merged.
 
+### Test Naming Convention
+
+```
+test__<unit>__<behavior>__<expected_result>
+```
+
+Examples:
+- `test__solve_random__single_facility__all_customers_assigned_to_it`
+- `test__solve_random__no_facilities__raises_value_error`
+
+### Test Body — AAA Pattern
+
+Every test must follow the **Arrange / Act / Assert** structure with explicit comments:
+
+```python
+def test__solve_random__normal_instance__returns_valid_solution():
+    # Arrange
+    instance = FacilityLocationInstance(...)
+
+    # Act
+    solution = solve_random(instance)
+
+    # Assert
+    assert len(solution.assignments) == instance.n_customers
+```
+
 ---
 
 ## API Design Rules
