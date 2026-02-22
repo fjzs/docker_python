@@ -9,11 +9,13 @@ interactive documentation (Swagger UI). This module orchestrates:
 - Business logic integration
 """
 
-from fastapi import FastAPI
-from fastapi.staticfiles import StaticFiles
-from fastapi.responses import FileResponse
 from pathlib import Path
+
+from fastapi import FastAPI
+from fastapi.responses import FileResponse
+from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
+
 from app.controllers.facility_location_controller import router as facility_router
 
 # Initialize the FastAPI application
