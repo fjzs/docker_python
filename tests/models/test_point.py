@@ -1,7 +1,5 @@
 """
 Test suite for Point model.
-
-Tests the Point class which represents a 2D coordinate on the 100x100 grid.
 """
 
 import pytest
@@ -68,3 +66,54 @@ class TestPoint:
         with pytest.raises(ValidationError):
             Point(x=50.0, y=100.1)
 
+
+    def test__distance_to__same_point__returns_zero(self):
+        # Arrange
+        point = Point(x=10.0, y=20.0)
+
+        # Act
+        distance = point.distance_to(point)
+
+        # Assert
+        assert distance == pytest.approx(0.0)
+
+    def test__distance_to__horizontal_points__returns_correct_distance(self):
+        # Arrange
+        p1 = Point(x=0.0, y=0.0)
+        p2 = Point(x=3.0, y=0.0)
+
+        # Act
+        distance = p1.distance_to(p2)
+
+        # Assert
+        assert distance == pytest.approx(3.0)
+
+    def test__distance_to__vertical_points__returns_correct_distance(self):
+        # Arrange
+        p1 = Point(x=0.0, y=0.0)
+        p2 = Point(x=0.0, y=4.0)
+
+        # Act
+        distance = p1.distance_to(p2)
+
+        # Assert
+        assert distance == pytest.approx(4.0)
+
+    def test__distance_to__diagonal_points__returns_correct_distance(self):
+        # Arrange
+        p1 = Point(x=0.0, y=0.0)
+        p2 = Point(x=3.0, y=4.0)
+
+        # Act
+        distance = p1.distance_to(p2)
+
+        # Assert
+        assert distance == pytest.approx(5.0)
+
+    def test__distance_to__is_symmetric(self):
+        # Arrange
+        p1 = Point(x=10.0, y=20.0)
+        p2 = Point(x=40.0, y=60.0)
+
+        # Act & Assert
+        assert p1.distance_to(p2) == pytest.approx(p2.distance_to(p1))

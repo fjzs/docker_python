@@ -66,9 +66,10 @@ generateForm.addEventListener('submit', async (e) => {
 
         displayResults(instance);
 
-        // Show solve button
+        // Show solve buttons and canvas
         solveButton.style.display = 'inline-block';
         solveOptimallyButton.style.display = 'inline-block';
+        gridCanvas.style.display = 'block';
 
     } catch (error) {
         showError(`Error generating instance: ${error.message}`);
@@ -82,16 +83,16 @@ generateForm.addEventListener('submit', async (e) => {
 // SOLVE INSTANCE
 // ===============================
 
-solveButton.addEventListener('click', async () => {
+async function solveInstance(endpoint, button, buttonLabel) {
     if (!currentInstance) return;
 
     hideError();
 
-    solveButton.disabled = true;
-    solveButton.textContent = 'Solving...';
+    button.disabled = true;
+    button.textContent = 'Solving...';
 
     try {
-        const response = await fetch('/api/solve-instance', {
+        const response = await fetch(endpoint, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -113,15 +114,18 @@ solveButton.addEventListener('click', async () => {
     } catch (error) {
         showError(`Error solving instance: ${error.message}`);
     } finally {
-        solveButton.disabled = false;
-        solveButton.textContent = 'Solve instance randomly';
+        button.disabled = false;
+        button.textContent = buttonLabel;
     }
-});
+}
 
-solveOptimallyButton.addEventListener('click', async () => {
-    // TODO: implement optimal solver endpoint
-    showError('Optimal solver not yet implemented.');
-});
+solveButton.addEventListener('click', () =>
+    solveInstance('/api/solve-instance-randomly', solveButton, 'Solve Instance Randomly')
+);
+
+solveOptimallyButton.addEventListener('click', () =>
+    solveInstance('/api/solve-instance-optimally', solveOptimallyButton, 'Solve Instance Optimally')
+);
 
 // ===============================
 // DISPLAY COSTS
@@ -145,7 +149,6 @@ function displayResults(instance) {
     drawGrid(instance);
 
     resultContainer.style.display = 'block';
-    resultContainer.scrollIntoView({ behavior: 'smooth' });
 }
 
 // ===============================
@@ -168,8 +171,6 @@ function drawGrid(instance, solution = null) {
 
     drawCustomers(ctx, instance);
     drawFacilities(ctx, instance, solution);
-
-    drawLegend(ctx);
 }
 
 function drawGridLines(ctx) {
@@ -241,41 +242,6 @@ function drawAssignments(ctx, instance, solution) {
     });
 }
 
-function drawLegend(ctx) {
-    const legendX = 10;
-    const legendY = CANVAS_SIZE - 50;
-
-    ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
-    ctx.fillRect(legendX - 5, legendY - 5, 180, 50);
-
-    ctx.strokeStyle = '#999';
-    ctx.lineWidth = 1;
-    ctx.strokeRect(legendX - 5, legendY - 5, 180, 50);
-
-    ctx.font = '12px sans-serif';
-    ctx.textAlign = 'left';
-
-    // Customer
-    ctx.fillStyle = '#3b82f6';
-    ctx.beginPath();
-    ctx.arc(legendX + 10, legendY + 10, 4, 0, 2 * Math.PI);
-    ctx.fill();
-    ctx.fillStyle = '#333';
-    ctx.fillText('Customers', legendX + 20, legendY + 15);
-
-    // Closed facility
-    ctx.fillStyle = '#ef4444';
-    ctx.fillRect(legendX + 10, legendY + 25, 8, 8);
-    ctx.fillStyle = '#333';
-    ctx.fillText('Closed Facility', legendX + 25, legendY + 33);
-
-    // Open facility
-    ctx.fillStyle = '#10b981';
-    ctx.fillRect(legendX + 110, legendY + 25, 8, 8);
-    ctx.fillStyle = '#333';
-    ctx.fillText('Open Facility', legendX + 125, legendY + 33);
-}
-
 // ===============================
 // UTILITIES
 // ===============================
@@ -293,6 +259,7 @@ function clearUI() {
     resultContainer.style.display = 'none';
     resultData.innerHTML = '';
     costSummary.style.display = 'none';
+    gridCanvas.style.display = 'none';
     currentSolution = null;
 }
 

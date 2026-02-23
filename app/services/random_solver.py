@@ -4,18 +4,12 @@ Solves a facility location instance by randomly assigning customers to facilitie
 This is a baseline solver — it produces feasible but not optimal solutions.
 """
 import logging
-import math
 import random
 
 from app.models import FacilityLocationInstance, FacilityLocationSolution
 from app.models.facility_location_solution import Assignment
 
 logger = logging.getLogger(__name__)
-
-
-def _euclidean_distance(x1: float, y1: float, x2: float, y2: float) -> float:
-    """Computes the Euclidean distance between two points."""
-    return math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2)
 
 
 def solve(instance: FacilityLocationInstance) -> FacilityLocationSolution:
@@ -47,12 +41,7 @@ def solve(instance: FacilityLocationInstance) -> FacilityLocationSolution:
 
     # Compute transportation cost: sum of Euclidean distances
     total_transportation_cost = sum(
-        _euclidean_distance(
-            instance.customers[a.customer_id].x,
-            instance.customers[a.customer_id].y,
-            instance.facilities[a.facility_id].x,
-            instance.facilities[a.facility_id].y,
-        )
+        instance.customers[a.customer_id].distance_to(instance.facilities[a.facility_id])
         for a in assignments
     )
 
