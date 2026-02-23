@@ -163,3 +163,56 @@ input[type="number"]:focus {
     box-shadow: 0 10px 20px rgba(16, 185, 129, 0.4);
 }
 
+.cost-summary {
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.cost-summary h3 {
+    color: #555;
+    font-size: 1.2em;
+    margin-bottom: 16px;
+}
+
+.cost-grid {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.cost-item {
+    flex: 1;
+    min-width: 150px;
+    background: #f8f9fa;
+    border-radius: 6px;
+    padding: 14px 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.cost-item.total {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.cost-item.total .cost-label,
+.cost-item.total .cost-value {
+    color: white;
+}
+
+.cost-label {
+    font-size: 0.85em;
+    color: #666;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.cost-value {
+    font-size: 1.5em;
+    font-weight: 700;
+    color: #333;
+}

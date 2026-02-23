@@ -67,6 +67,25 @@
             <button id="solveButton" class="btn-solve" style="display: none;">
                 Solve Instance
             </button>
+
+            <div id="costSummary" class="cost-summary" style="display: none;">
+                <h3>Solution Costs</h3>
+                <div class="cost-grid">
+                    <div class="cost-item">
+                        <span class="cost-label">Transportation Cost</span>
+                        <span class="cost-value" id="transportationCost">-</span>
+                    </div>
+                    <div class="cost-item">
+                        <span class="cost-label">Facility Opening Cost</span>
+                        <span class="cost-value" id="facilityCost">-</span>
+                    </div>
+                    <div class="cost-item total">
+                        <span class="cost-label">Total Cost</span>
+                        <span class="cost-value" id="totalCost">-</span>
+                    </div>
+                </div>
+            </div>
+
             <canvas id="gridCanvas" width="500" height="500" class="grid-canvas"></canvas>
         </div>
 
@@ -78,4 +97,3 @@
     <script src="/static/js/app.js"></script>
 </body>
 </html>
-

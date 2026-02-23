@@ -17,6 +17,10 @@ const resultData = document.getElementById('resultData');
 const gridCanvas = document.getElementById('gridCanvas');
 const errorContainer = document.getElementById('errorContainer');
 const errorMessage = document.getElementById('errorMessage');
+const costSummary = document.getElementById('costSummary');
+const transportationCostEl = document.getElementById('transportationCost');
+const facilityCostEl = document.getElementById('facilityCost');
+const totalCostEl = document.getElementById('totalCost');
 
 // ===============================
 // GENERATE INSTANCE
@@ -101,6 +105,7 @@ solveButton.addEventListener('click', async () => {
         const solution = await response.json();
         currentSolution = solution;
 
+        displayCosts(solution);
         drawGrid(currentInstance, currentSolution);
 
     } catch (error) {
@@ -110,6 +115,17 @@ solveButton.addEventListener('click', async () => {
         solveButton.textContent = 'Solve Instance';
     }
 });
+
+// ===============================
+// DISPLAY COSTS
+// ===============================
+
+function displayCosts(solution) {
+    transportationCostEl.textContent = solution.total_transportation_cost.toFixed(2);
+    facilityCostEl.textContent = solution.total_opening_cost.toFixed(2);
+    totalCostEl.textContent = solution.total_cost.toFixed(2);
+    costSummary.style.display = 'block';
+}
 
 // ===============================
 // DISPLAY RESULTS
@@ -269,6 +285,7 @@ function hideError() {
 function clearUI() {
     resultContainer.style.display = 'none';
     resultData.innerHTML = '';
+    costSummary.style.display = 'none';
     currentSolution = null;
 }
 
