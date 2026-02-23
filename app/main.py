@@ -20,7 +20,7 @@ from app.controllers.solve_instance import router as solve_instance_router
 app = FastAPI(
     title="Facility Location Optimizer",
     description="Optimize facility placement to serve customers efficiently",
-    version="1.0.0",
+    version="2.0.0",
 )
 
 # Mount static files (CSS, JavaScript, images, etc.)

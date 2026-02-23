@@ -34,6 +34,7 @@ generateForm.addEventListener('submit', async (e) => {
 
     const nCustomers = parseInt(document.getElementById('n_customers').value);
     const nFacilities = parseInt(document.getElementById('n_facilities').value);
+    const openingCost = parseInt(document.getElementById('opening_cost').value);
 
     try {
         const response = await fetch('/api/generate-instance', {
@@ -44,6 +45,7 @@ generateForm.addEventListener('submit', async (e) => {
             body: JSON.stringify({
                 n_customers: nCustomers,
                 n_facilities: nFacilities,
+                opening_cost: openingCost,
             }),
         });
 
