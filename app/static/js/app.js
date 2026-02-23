@@ -128,9 +128,9 @@ solveOptimallyButton.addEventListener('click', async () => {
 // ===============================
 
 function displayCosts(solution) {
-    transportationCostEl.textContent = solution.total_transportation_cost.toFixed(2);
-    facilityCostEl.textContent = solution.total_opening_cost.toFixed(2);
-    totalCostEl.textContent = solution.total_cost.toFixed(2);
+    transportationCostEl.textContent = solution.total_transportation_cost.toFixed(0);
+    facilityCostEl.textContent = solution.total_opening_cost.toFixed(0);
+    totalCostEl.textContent = solution.total_cost.toFixed(0);
     costSummary.style.display = 'block';
 }
 
