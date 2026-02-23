@@ -28,10 +28,10 @@ def generate_instance(request: GenerateInstanceRequest) -> FacilityLocationInsta
     randomly placed on a 100x100 unit grid.
 
     Args:
-        request: GenerateInstanceRequest containing n_customers and n_facilities
+        request: GenerateInstanceRequest
 
     Returns:
-        FacilityLocationInstance: A complete problem instance with random locations
+        FacilityLocationInstance
 
     Raises:
         HTTPException: If input validation fails (handled by Pydantic)
@@ -40,12 +40,14 @@ def generate_instance(request: GenerateInstanceRequest) -> FacilityLocationInsta
         POST /api/generate-instance
         {
             "n_customers": 10,
-            "n_facilities": 3
+            "n_facilities": 3,
+            "opening_cost": 10
         }
         Returns:
         {
             "n_customers": 10,
             "n_facilities": 3,
+            "opening_cost": 10,
             "customers": [...],
             "facilities": [...]
         }
@@ -54,10 +56,13 @@ def generate_instance(request: GenerateInstanceRequest) -> FacilityLocationInsta
         instance = generate_facility_location_instance(
             n_customers=request.n_customers,
             n_facilities=request.n_facilities,
+            opening_cost=request.opening_cost,
         )
         logger.info(
-            f"Generated instance: {request.n_customers} customers, "
-            f"{request.n_facilities} facilities"
+            f"Generated instance:"
+            f"{request.n_customers} customers, "
+            f"{request.n_facilities} facilities, "
+            f"opening cost {request.opening_cost}"
         )
         return instance
     except ValueError as e:

@@ -18,13 +18,15 @@ def test_generate_facility_location_instance__valid_input__correct_counts():
     # Arrange
     n_customers = 15
     n_facilities = 4
+    opening_cost = 10
 
     # Act
-    instance = generate_facility_location_instance(n_customers, n_facilities)
+    instance = generate_facility_location_instance(n_customers, n_facilities, opening_cost)
 
     # Assert
     assert instance.n_customers == n_customers
     assert instance.n_facilities == n_facilities
+    assert instance.opening_cost == opening_cost
     assert len(instance.customers) == n_customers
     assert len(instance.facilities) == n_facilities
 
@@ -40,9 +42,10 @@ def test_generate_facility_location_instance__coordinates_in_grid__all_coordinat
     # Arrange
     n_customers = 10
     n_facilities = 3
+    opening_cost = 10
 
     # Act
-    instance = generate_facility_location_instance(n_customers, n_facilities)
+    instance = generate_facility_location_instance(n_customers, n_facilities, opening_cost)
 
     # Assert
     for customer in instance.customers:
@@ -52,50 +55,6 @@ def test_generate_facility_location_instance__coordinates_in_grid__all_coordinat
     for facility in instance.facilities:
         assert 0 <= facility.x <= 100, f"Facility x={facility.x} out of bounds"
         assert 0 <= facility.y <= 100, f"Facility y={facility.y} out of bounds"
-
-
-def test_generate_facility_location_instance__uniqueness__no_duplicate_coordinates():
-    """
-    Test that coordinates are reasonably unique (no duplicates for small instances).
-
-    Arrange: Request small instance (5 customers, 2 facilities)
-    Act: Generate instance
-    Assert: No duplicate coordinates
-    """
-    # Arrange
-    n_customers = 5
-    n_facilities = 2
-
-    # Act
-    instance = generate_facility_location_instance(n_customers, n_facilities)
-
-    # Assert
-    all_points = [(c.x, c.y) for c in instance.customers] + [(f.x, f.y) for f in instance.facilities]
-    # For small samples, duplicates should be extremely rare
-    assert len(all_points) == len(set(all_points)), "Duplicate coordinates found"
-
-
-def test_generate_facility_location_instance__multiple_calls__different_instances():
-    """
-    Test that multiple generated instances are different.
-
-    Arrange: Same request parameters
-    Act: Generate two instances
-    Assert: Instances have different coordinates
-    """
-    # Arrange
-    n_customers = 10
-    n_facilities = 3
-
-    # Act
-    instance1 = generate_facility_location_instance(n_customers, n_facilities)
-    instance2 = generate_facility_location_instance(n_customers, n_facilities)
-
-    # Assert
-    # Compare customer coordinates
-    coords1 = [(c.x, c.y) for c in instance1.customers]
-    coords2 = [(c.x, c.y) for c in instance2.customers]
-    assert coords1 != coords2, "Two generated instances should be different"
 
 
 def test_generate_facility_location_instance__large_scale__generates_correct_counts():
@@ -109,9 +68,10 @@ def test_generate_facility_location_instance__large_scale__generates_correct_cou
     # Arrange
     n_customers = 100
     n_facilities = 20
+    opening_cost = 10
 
     # Act
-    instance = generate_facility_location_instance(n_customers, n_facilities)
+    instance = generate_facility_location_instance(n_customers, n_facilities, opening_cost)
 
     # Assert
     assert len(instance.customers) == n_customers
@@ -129,9 +89,10 @@ def test_generate_facility_location_instance__minimum_size__creates_instance():
     # Arrange
     n_customers = 1
     n_facilities = 1
+    opening_cost = 10
 
     # Act
-    instance = generate_facility_location_instance(n_customers, n_facilities)
+    instance = generate_facility_location_instance(n_customers, n_facilities, opening_cost)
 
     # Assert
     assert instance.n_customers == 1

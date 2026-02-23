@@ -4,12 +4,18 @@ Solves a facility location instance by randomly assigning customers to facilitie
 This is a baseline solver — it produces feasible but not optimal solutions.
 """
 import logging
+import math
 import random
 
 from app.models import FacilityLocationInstance, FacilityLocationSolution
 from app.models.facility_location_solution import Assignment
 
 logger = logging.getLogger(__name__)
+
+
+def _euclidean_distance(x1: float, y1: float, x2: float, y2: float) -> float:
+    """Computes the Euclidean distance between two points."""
+    return math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2)
 
 
 def solve(instance: FacilityLocationInstance) -> FacilityLocationSolution:
@@ -39,12 +45,31 @@ def solve(instance: FacilityLocationInstance) -> FacilityLocationSolution:
         for i in range(instance.n_customers)
     ]
 
+    # Compute transportation cost: sum of Euclidean distances
+    total_transportation_cost = sum(
+        _euclidean_distance(
+            instance.customers[a.customer_id].x,
+            instance.customers[a.customer_id].y,
+            instance.facilities[a.facility_id].x,
+            instance.facilities[a.facility_id].y,
+        )
+        for a in assignments
+    )
+
+    # Compute opening cost: number of open facilities times unit cost
+    total_opening_cost = len(open_facilities) * instance.opening_cost
+
+    total_cost = total_transportation_cost + total_opening_cost
+
     logger.info(
         f"Random solver: {len(open_facilities)}/{instance.n_facilities} facilities open, "
-        f"{instance.n_customers} customers assigned"
+        f"{instance.n_customers} customers assigned, total cost: {total_cost:.2f}"
     )
 
     return FacilityLocationSolution(
         open_facilities=open_facilities,
         assignments=assignments,
+        total_transportation_cost=total_transportation_cost,
+        total_opening_cost=float(total_opening_cost),
+        total_cost=total_cost,
     )

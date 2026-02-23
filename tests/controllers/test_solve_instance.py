@@ -18,6 +18,7 @@ def test__solve_instance__valid_instance__returns_200(client):
     instance_data = {
         "n_customers": 10,
         "n_facilities": 3,
+        "opening_cost": 10,
         "customers": [{"x": i, "y": i} for i in range(10)],
         "facilities": [{"x": i * 10, "y": i * 10} for i in range(3)],
     }
@@ -34,6 +35,7 @@ def test__solve_instance__valid_instance__returns_solution_fields(client):
     instance_data = {
         "n_customers": 10,
         "n_facilities": 3,
+        "opening_cost": 10,
         "customers": [{"x": i, "y": i} for i in range(10)],
         "facilities": [{"x": i * 10, "y": i * 10} for i in range(3)],
     }
@@ -52,6 +54,7 @@ def test__solve_instance__valid_instance__all_customers_are_assigned(client):
     instance_data = {
         "n_customers": 10,
         "n_facilities": 3,
+        "opening_cost": 10,
         "customers": [{"x": i, "y": i} for i in range(10)],
         "facilities": [{"x": i * 10, "y": i * 10} for i in range(3)],
     }

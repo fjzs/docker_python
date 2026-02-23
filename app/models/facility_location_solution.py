@@ -26,6 +26,12 @@ class FacilityLocationSolution(BaseModel):
     Attributes:
         open_facilities: List of indices of open facilities
         assignments: List of customer-to-facility assignments
+        total_transportation_cost: Sum of Euclidean distances from each customer to its facility
+        total_opening_cost: Sum of opening costs for all open facilities
+        total_cost: Sum of transportation and opening costs
     """
     open_facilities: List[int] = Field(description="Indices of open facilities")
     assignments: List[Assignment] = Field(description="Customer-facility assignments")
+    total_transportation_cost: float = Field(ge=0, description="Sum of Euclidean distances")
+    total_opening_cost: float = Field(ge=0, description="Sum of opening costs for open facilities")
+    total_cost: float = Field(ge=0, description="Total transportation and opening cost")

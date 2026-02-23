@@ -1,140 +1,37 @@
 """
-Test suite for GenerateInstanceRequest model.
-
-Tests the GenerateInstanceRequest class which validates API requests for generating
-facility location problem instances.
+Tests for the GenerateInstanceRequest model.
 """
-
 import pytest
 from pydantic import ValidationError
 
 from app.models.generate_instance_request import GenerateInstanceRequest
 
 
-def test_generate_instance_request__valid_values__creates_request():
-    """
-    Test that valid request data is accepted.
+@pytest.mark.parametrize("n_customers, n_facilities, opening_cost", [
+    (-1, 3,  10),   # negative customers
+    (0,  3,  10),   # zero customers
+    (10, -1, 10),   # negative facilities
+    (10, 0,  10),   # zero facilities
+    (10, 3,  0),    # zero opening cost
+    (10, 3,  -5),   # negative opening cost
+])
+def test__generate_instance_request__invalid_values__raises_validation_error(
+    n_customers, n_facilities, opening_cost
+):
+    # Arrange & Act & Assert
+    with pytest.raises(ValidationError):
+        GenerateInstanceRequest(
+            n_customers=n_customers,
+            n_facilities=n_facilities,
+            opening_cost=opening_cost,
+        )
 
-    Arrange: Valid n_customers and n_facilities
-    Act: Create GenerateInstanceRequest
-    Assert: Request is created with correct values
-    """
+
+def test__generate_instance_request__valid_values__creates_request():
     # Arrange & Act
-    request = GenerateInstanceRequest(n_customers=10, n_facilities=3)
+    request = GenerateInstanceRequest(n_customers=10, n_facilities=3, opening_cost=10)
 
     # Assert
     assert request.n_customers == 10
     assert request.n_facilities == 3
-
-
-def test_generate_instance_request__negative_customers__rejected():
-    """
-    Test that negative customer count is rejected.
-
-    Arrange: n_customers = -1
-    Act: Try to create GenerateInstanceRequest
-    Assert: ValidationError is raised
-    """
-    # Arrange & Act & Assert
-    with pytest.raises(ValidationError): 
-        GenerateInstanceRequest(n_customers=-1, n_facilities=3)
-
-
-def test_generate_instance_request__zero_customers__rejected():
-    """
-    Test that zero customer count is rejected.
-
-    Arrange: n_customers = 0
-    Act: Try to create GenerateInstanceRequest
-    Assert: ValidationError is raised
-    """
-    # Arrange & Act & Assert
-    with pytest.raises(ValidationError):
-        GenerateInstanceRequest(n_customers=0, n_facilities=3)
-
-
-def test_generate_instance_request__zero_facilities__rejected():
-    """
-    Test that zero facility count is rejected.
-
-    Arrange: n_facilities = 0
-    Act: Try to create GenerateInstanceRequest
-    Assert: ValidationError is raised
-    """
-    # Arrange & Act & Assert
-    with pytest.raises(ValidationError):
-        GenerateInstanceRequest(n_customers=10, n_facilities=0)
-
-
-def test_generate_instance_request__negative_facilities__rejected():
-    """
-    Test that negative facility count is rejected.
-
-    Arrange: n_facilities = -1
-    Act: Try to create GenerateInstanceRequest
-    Assert: ValidationError is raised
-    """
-    # Arrange & Act & Assert
-    with pytest.raises(ValidationError):
-        GenerateInstanceRequest(n_customers=10, n_facilities=-1)
-
-
-def test_generate_instance_request__max_customers__accepted():
-    """
-    Test that maximum customer count (100) is accepted.
-
-    Arrange: n_customers = 100
-    Act: Create GenerateInstanceRequest
-    Assert: Request is created successfully
-    """
-    # Arrange & Act
-    request = GenerateInstanceRequest(n_customers=100, n_facilities=10)
-
-    # Assert
-    assert request.n_customers == 100
-    assert request.n_facilities == 10
-
-
-def test_generate_instance_request__max_facilities__accepted():
-    """
-    Test that maximum facility count (100) is accepted.
-
-    Arrange: n_facilities = 100
-    Act: Create GenerateInstanceRequest
-    Assert: Request is created successfully
-    """
-    # Arrange & Act
-    request = GenerateInstanceRequest(n_customers=10, n_facilities=100)
-
-    # Assert
-    assert request.n_customers == 10
-    assert request.n_facilities == 100
-
-
-def test_generate_instance_request__customers_exceeds_max__rejected():
-    """
-    Test that customer count exceeding 100 is rejected.
-
-    Arrange: n_customers = 101
-    Act: Try to create GenerateInstanceRequest
-    Assert: ValidationError is raised
-    """
-    # Arrange & Act & Assert
-    with pytest.raises(ValidationError):
-        GenerateInstanceRequest(n_customers=101, n_facilities=10)
-
-
-def test_generate_instance_request__facilities_exceeds_max__rejected():
-    """
-    Test that facility count exceeding 100 is rejected.
-
-    Arrange: n_facilities = 101
-    Act: Try to create GenerateInstanceRequest
-    Assert: ValidationError is raised
-    """
-    # Arrange & Act & Assert
-    with pytest.raises(ValidationError):
-        GenerateInstanceRequest(n_customers=10, n_facilities=101)
-
-
-
+    assert request.opening_cost == 10

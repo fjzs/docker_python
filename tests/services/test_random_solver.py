@@ -1,6 +1,8 @@
 """
 Tests for the random solver service.
 """
+import pytest
+
 from app.models import FacilityLocationInstance, FacilityLocationSolution
 from app.models.point import Point
 from app.services.random_solver import solve
@@ -8,12 +10,13 @@ from app.services.random_solver import solve
 
 # ── Helpers ────────────────────────────────────────────────────────────────
 
-def make_instance(n_customers: int, n_facilities: int) -> FacilityLocationInstance:
+def make_instance(n_customers: int, n_facilities: int, opening_cost: int = 10) -> FacilityLocationInstance:
     customers = [Point(x=i, y=i) for i in range(n_customers)]
     facilities = [Point(x=i * 10, y=i * 10) for i in range(n_facilities)]
     return FacilityLocationInstance(
         n_customers=n_customers,
         n_facilities=n_facilities,
+        opening_cost=opening_cost,
         customers=customers,
         facilities=facilities,
     )
@@ -100,3 +103,40 @@ def test__solve__single_customer__exactly_one_assignment():
 
     # Assert
     assert len(solution.assignments) == 1
+
+
+def test__solve__normal_instance__total_cost_equals_sum_of_components():
+    # Arrange
+    instance = make_instance(n_customers=10, n_facilities=3)
+
+    # Act
+    solution = solve(instance)
+
+    # Assert
+    assert solution.total_cost == pytest.approx(
+        solution.total_transportation_cost + solution.total_opening_cost
+    )
+
+
+def test__solve__normal_instance__transportation_cost_is_non_negative():
+    # Arrange
+    instance = make_instance(n_customers=10, n_facilities=3)
+
+    # Act
+    solution = solve(instance)
+
+    # Assert
+    assert solution.total_transportation_cost >= 0
+
+
+def test__solve__normal_instance__opening_cost_equals_n_open_facilities_times_unit_cost():
+    # Arrange
+    instance = make_instance(n_customers=10, n_facilities=3, opening_cost=10)
+
+    # Act
+    solution = solve(instance)
+
+    # Assert
+    assert solution.total_opening_cost == pytest.approx(
+        len(solution.open_facilities) * instance.opening_cost
+    )
