@@ -12,6 +12,7 @@ let currentSolution = null;
 // Get DOM elements
 const generateForm = document.getElementById('generateForm');
 const solveButton = document.getElementById('solveButton');
+const solveOptimallyButton = document.getElementById('solveOptimallyButton');
 const resultContainer = document.getElementById('resultContainer');
 const resultData = document.getElementById('resultData');
 const gridCanvas = document.getElementById('gridCanvas');
@@ -67,6 +68,7 @@ generateForm.addEventListener('submit', async (e) => {
 
         // Show solve button
         solveButton.style.display = 'inline-block';
+        solveOptimallyButton.style.display = 'inline-block';
 
     } catch (error) {
         showError(`Error generating instance: ${error.message}`);
@@ -112,8 +114,13 @@ solveButton.addEventListener('click', async () => {
         showError(`Error solving instance: ${error.message}`);
     } finally {
         solveButton.disabled = false;
-        solveButton.textContent = 'Solve Instance';
+        solveButton.textContent = 'Solve instance randomly';
     }
+});
+
+solveOptimallyButton.addEventListener('click', async () => {
+    // TODO: implement optimal solver endpoint
+    showError('Optimal solver not yet implemented.');
 });
 
 // ===============================
