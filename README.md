@@ -1,4 +1,7 @@
 # OptOps: python web application for an optimization problem
+
+[![CI](https://github.com/fjzs/docker_python/actions/workflows/ci.yml/badge.svg)](https://github.com/fjzs/docker_python/actions/workflows/ci.yml)
+
 The purpose of this project is to practice OptOps, particularly CI/CD, and to create a simple web application that solves an optimization problem. 
 The application is built using:
 - FastAPI: a modern, fast (high-performance) web framework for building APIs with Python.

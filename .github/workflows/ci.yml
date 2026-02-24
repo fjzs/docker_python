@@ -31,9 +31,9 @@ jobs:
       - name: Build Docker image
         run: docker build -t $IMAGE_NAME:${{ github.sha }} .
 
-      # 4️⃣ Run tests inside Docker image
+      # 4️⃣ Run tests inside Docker image with coverage
       - name: Run tests in Docker
-        run: docker run --rm $IMAGE_NAME:${{ github.sha }} pytest -v tests/
+        run: docker run --rm $IMAGE_NAME:${{ github.sha }} pytest --cov=app
 
       # 5️⃣ Tag image as latest
       - name: Tag image as latest
