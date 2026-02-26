@@ -30,7 +30,6 @@
                             required
                         >
                     </div>
-
                     <div class="form-group">
                         <label for="n_facilities">Number of Facilities:</label>
                         <input
@@ -43,7 +42,6 @@
                             required
                         >
                     </div>
-
                     <div class="form-group">
                         <label for="opening_cost">Facility Opening Cost:</label>
                         <input
@@ -55,7 +53,6 @@
                             required
                         >
                     </div>
-
                     <button type="submit" class="btn-generate">Generate Instance</button>
                 </form>
             </div>
@@ -74,8 +71,8 @@
             </div>
         </div>
 
-        <div class="canvas-container">
-            <div class="map-sidebar">
+        <div class="bottom-panel">
+            <div class="map-panel" style="display: none;" id="mapPanel">
                 <div class="map-legend">
                     <div class="legend-item">
                         <span class="legend-dot customer"></span>
@@ -90,27 +87,26 @@
                         <span>Closed Facility</span>
                     </div>
                 </div>
-
-                <div id="costSummary" class="cost-summary" style="display: none;">
-                    <h3>Solution Costs</h3>
-                    <div class="cost-grid">
-                        <div class="cost-item">
-                            <span class="cost-label">Transportation Cost</span>
-                            <span class="cost-value" id="transportationCost">-</span>
-                        </div>
-                        <div class="cost-item">
-                            <span class="cost-label">Facility Opening Cost</span>
-                            <span class="cost-value" id="facilityCost">-</span>
-                        </div>
-                        <div class="cost-item total">
-                            <span class="cost-label">Total Cost</span>
-                            <span class="cost-value" id="totalCost">-</span>
-                        </div>
+                <div class="canvases-container">
+                    <div class="canvas-wrapper">
+                        <h3 class="canvas-label">Instance</h3>
+                        <canvas id="gridCanvasInstance" width="500" height="500" class="grid-canvas"></canvas>
+                    </div>
+                    <div class="canvas-wrapper" id="randomCanvasWrapper" style="display: none;">
+                        <h3 class="canvas-label">Random Solution</h3>
+                        <canvas id="gridCanvasRandom" width="500" height="500" class="grid-canvas"></canvas>
+                    </div>
+                    <div class="canvas-wrapper" id="optimalCanvasWrapper" style="display: none;">
+                        <h3 class="canvas-label">Optimal Solution</h3>
+                        <canvas id="gridCanvasOptimal" width="500" height="500" class="grid-canvas"></canvas>
                     </div>
                 </div>
             </div>
 
-            <canvas id="gridCanvas" width="500" height="500" class="grid-canvas" style="display: none;"></canvas>
+            <div id="chartContainer" class="chart-container" style="display: none;">
+                <h2>Cost Comparison</h2>
+                <canvas id="chartCanvas" class="chart-canvas"></canvas>
+            </div>
         </div>
 
         <div id="errorContainer" class="error-container" style="display: none;">

@@ -133,7 +133,7 @@ input[type="number"]:focus {
     border: 2px solid #ddd;
     border-radius: 6px;
     background: white;
-    width: 50%;
+    width: 100%;
     height: auto;
     display: block;
     margin: 0 auto;
@@ -190,70 +190,18 @@ input[type="number"]:focus {
     box-shadow: 0 10px 20px rgba(245, 158, 11, 0.4);
 }
 
-.cost-summary {
-    background: white;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 20px;
-}
-
-.cost-summary h3 {
-    color: #555;
-    font-size: 1.2em;
-    margin-bottom: 16px;
-}
-
-.cost-grid {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-}
-
-.cost-item {
-    background: #f8f9fa;
-    border-radius: 6px;
-    padding: 14px 18px;
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-}
-
-.cost-item.total {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-}
-
-.cost-item.total .cost-label,
-.cost-item.total .cost-value {
-    color: white;
-}
-
-.cost-label {
-    font-size: 0.85em;
-    color: #666;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-}
-
-.cost-value {
-    font-size: 1.5em;
-    font-weight: 700;
-    color: #333;
-}
-
-.canvas-container {
+.bottom-panel {
     display: flex;
     align-items: flex-start;
-    gap: 20px;
+    gap: 30px;
     margin-top: 20px;
 }
 
-.map-sidebar {
+.map-panel {
     display: flex;
     flex-direction: column;
     gap: 16px;
-    min-width: 160px;
-    flex-shrink: 0;
+    flex: 1;
 }
 
 .map-legend {
@@ -297,4 +245,39 @@ input[type="number"]:focus {
 
 .legend-square.closed-facility {
     background: #ef4444;
+}
+
+.chart-container {
+    padding: 30px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    flex: 1;
+}
+
+.chart-canvas {
+    display: block;
+    margin: 0 auto;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+}
+
+.canvases-container {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+}
+
+.canvas-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+}
+
+.canvas-label {
+    color: #555;
+    font-size: 1em;
+    font-weight: 600;
+    text-align: center;
 }
