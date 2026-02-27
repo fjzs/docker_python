@@ -17,8 +17,8 @@ The purpose of this project is to implement an end-to-end optimization service u
 
 ## Software development approach:
 - Test-Driven Development (TDD): a software development process where you write tests before writing the actual code. This approach helps ensure that the code is well-designed, maintainable, and meets the requirements.
-- Software Design Principles: I followed basic principles like SOLID and DRY, but also incorporated the philosophy within `A Philosophy of Software Design` by John 
-  Ousterhout, which emphasizes simplicity and modularity in software design. (https://www.amazon.com/Philosophy-Software-Design-2nd/dp/173210221X).
+- Software Design Principles: I followed basic principles like SOLID and DRY, but also incorporated the philosophy within the book `A Philosophy of Software Design` by 
+  John Ousterhout, which emphasizes simplicity and modularity in software design. (https://www.amazon.com/Philosophy-Software-Design-2nd/dp/173210221X).
 - Software Architecture: I used an MVC design pattern to separate the concerns of the application, making it easier to maintain and extend in the future.
 - I used agentic development to accelerate the development process, leveraging the capabilities of AI agents like Copilot and Claude to assist with code generation, refactoring, and testing.
 - I used a file to provide context to the agent (testing best practices, software design principles and more).
