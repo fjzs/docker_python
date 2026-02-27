@@ -7,7 +7,7 @@ The purpose of this project is to implement an end-to-end optimization service u
 ## Technologies used:
 - FastAPI: a modern, fast (high-performance) web framework for building APIs with Python.
 - Docker: a platform for developing, shipping, and running applications in containers, which allows for consistent environments across development and production.
-- GitHub Actions: a CI/CD platform that allows you to automate your build, test, and deployment pipeline directly from your GitHub repository.
+- GitHub Actions: a CI/CD technology that allows you to automate your build, test, and deployment pipeline directly from your GitHub repository.
 - Render: a cloud platform that provides hosting for web applications, databases, and other services, making it easy to deploy and manage applications in the cloud.
 
 ## Software development approach:
