@@ -64,7 +64,7 @@ This project uses GitHub Actions for continuous integration. It has a workflow t
 1. **Checkout code**: The workflow checks out the code from the repository.
 2. **Build Docker image**: It builds the Docker image for the application.
 3. **Run tests**: It runs all the tests (unit and integration) directly from the image to ensure that the application works as expected.
-4. **Publish Docker image**: If the tests pass, the workflow publishes the Docker image to a predefined container registry. In particular, this is `https://github.com/fjzs/docker_python/pkgs/container/optimization-api`
+4. **Publish Docker image**: If the tests pass, the workflow publishes the Docker image to a predefined container registry. In particular, this is https://github.com/fjzs/docker_python/pkgs/container/optimization-api.
 5. **Tagging**: The workflow finally tags the recently uploaded image as the `latest`.
 
 # Continuous Deployment (CD)
