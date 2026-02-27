@@ -34,9 +34,6 @@ The application is built using:
     ```
 7. Open your web browser and navigate to `http://localhost:8000` to access the application.
 
-# End points
-- List here the end points of the app
-
 # Running the application with Docker (locally)
 1. Build the Docker image (or skip this step if your image is already built locally):
    ```
@@ -48,6 +45,15 @@ The application is built using:
    ```
 3. Open your web browser and navigate to `http://localhost:8000` to access the application.
 
-# Continuous Integration and Deployment (CI/CD)
-This project uses GitHub Actions for continuous integration and deployment.
-- All docker images are published here: `https://github.com/fjzs/docker_python/pkgs/container/optimization-api`
+# Continuous Integration (CI)
+This project uses GitHub Actions for continuous integration. It has a workflow that runs on every push, and it includes the following high-level steps:
+1. **Checkout code**: The workflow checks out the code from the repository.
+2. **Build Docker image**: It builds the Docker image for the application.
+3. **Run tests**: It runs all the tests (unit and integration) directly from the image to ensure that the application works as expected.
+4. **Publish Docker image**: If the tests pass, the workflow publishes the Docker image to a predefined container registry. In particular, this is `https://github.com/fjzs/docker_python/pkgs/container/optimization-api`
+5. **Tagging**: The workflow finally tags the recently uploaded image as the `latest`.
+
+# Continuous Deployment (CD)
+- This project uses Render as the hosting platform for the application. Currently, from the Render site I manually trigger the deployment of the latest image published.
+- From the Render dashboard I can see the logs of the application.
+- Other observability tools could be added, but as of now those are out of scope for this project.
