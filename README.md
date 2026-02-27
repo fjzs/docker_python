@@ -1,4 +1,4 @@
-# OptOps: Web application for an optimization service
+# A web application for an optimization service using OptOps (DevOps + Operations Research) strategies.
 
 [![Unit Tests](https://github.com/fjzs/docker_python/actions/workflows/ci.yml/badge.svg)](https://github.com/fjzs/docker_python/actions/workflows/ci.yml)
 
