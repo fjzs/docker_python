@@ -1,8 +1,8 @@
-# OptOps: python web application for an optimization service
+# OptOps: Web application for an optimization service
 
 [![Unit Tests](https://github.com/fjzs/docker_python/actions/workflows/ci.yml/badge.svg)](https://github.com/fjzs/docker_python/actions/workflows/ci.yml)
 
-The purpose of this project is to practice OptOps, particularly CI/CD, and to create a simple web application that solves an optimization problem. 
+The purpose of this project is to implement an end-to-end optimization service using OptOps (DevOps + OR).
 The application is built using:
 - FastAPI: a modern, fast (high-performance) web framework for building APIs with Python.
 - Docker: a platform for developing, shipping, and running applications in containers, which allows for consistent environments across development and production.
