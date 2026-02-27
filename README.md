@@ -1,6 +1,11 @@
 # A web application for an optimization service using OptOps (DevOps + Operations Research) strategies.
 
 [![Unit Tests](https://github.com/fjzs/docker_python/actions/workflows/ci.yml/badge.svg)](https://github.com/fjzs/docker_python/actions/workflows/ci.yml)
+![Python](https://img.shields.io/badge/python-3.11-blue)
+![FastAPI](https://img.shields.io/badge/FastAPI-009688?logo=fastapi&logoColor=white)
+![Docker](https://img.shields.io/badge/Docker-2496ED?logo=docker&logoColor=white)
+![Solver](https://img.shields.io/badge/Solver-MIP%20Enabled-success)
+![Last Image Published](https://img.shields.io/github/last-commit/fjzs/docker_python)
 
 The purpose of this project is to implement an end-to-end optimization service using OptOps (DevOps + OR) with software engineering best practices.
 
@@ -68,4 +73,4 @@ This project uses GitHub Actions for continuous integration. It has a workflow t
 - Other observability tools could be added, but as of now those are out of scope for this project.
 
 # Using the web application
-The web application can be accessed (give it ~1 min to Render to lift the app) on this URL: https://franciscooptimizationapi.onrender.com/
+The web application can be accessed (give it ~10 seconds to Render to lift the app) on this URL: https://franciscooptimizationapi.onrender.com/
