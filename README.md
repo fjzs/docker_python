@@ -1,6 +1,6 @@
-# OptOps: python web application for an optimization problem
+# OptOps: python web application for an optimization service
 
-[![CI](https://github.com/fjzs/docker_python/actions/workflows/ci.yml/badge.svg)](https://github.com/fjzs/docker_python/actions/workflows/ci.yml)
+[![Unit Tests](https://github.com/fjzs/docker_python/actions/workflows/ci.yml/badge.svg)](https://github.com/fjzs/docker_python/actions/workflows/ci.yml)
 
 The purpose of this project is to practice OptOps, particularly CI/CD, and to create a simple web application that solves an optimization problem. 
 The application is built using:
